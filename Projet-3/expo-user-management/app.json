@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "expo-user-management",
+    "slug": "expo-user-management",
+    "scheme": "myapp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/IsiCovoit_Icone_carré.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/IsiCovoit_Logo_carré.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0092ca"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/IsiCovoit_Logo_carré.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.anonymous.expousermanagement"
+    },
+    "web": {
+      "favicon": "./assets/IsiCovoit_Icone_carré.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-router"
+    ]
+  }
+}
