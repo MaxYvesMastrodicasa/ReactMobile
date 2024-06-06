@@ -24,9 +24,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="Auth"
+        name="account"
         options={{
-          title: "Authentification",
+          title: "Account",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
               name="account"
