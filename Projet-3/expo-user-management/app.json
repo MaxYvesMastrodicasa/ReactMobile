@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/IsiCovoit_Logo_carré.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0092ca"
+      "backgroundColor": "#0795cb"
     },
     "ios": {
       "supportsTablet": true

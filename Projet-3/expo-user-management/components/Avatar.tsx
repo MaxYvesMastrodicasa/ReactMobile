@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
-import { StyleSheet, View, Alert, Image, Button } from 'react-native'
+import { StyleSheet, View, Alert, Image, Button, Dimensions } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
+
+const {width}= Dimensions.get("window");
 
 interface Props {
   size: number
@@ -99,7 +101,7 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
       ) : (
         <View style={[avatarSize, styles.avatar, styles.noImage]} />
       )}
-      <View>
+      <View style={[styles.size, styles.mt10]}>
         <Button
           title={uploading ? 'Uploading ...' : 'Upload'}
           onPress={uploadAvatar}
@@ -115,16 +117,27 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     overflow: 'hidden',
     maxWidth: '100%',
+
   },
   image: {
     objectFit: 'cover',
     paddingTop: 0,
+    alignSelf: "center",
+
   },
   noImage: {
-    backgroundColor: '#333',
+    backgroundColor: '#37aad5',
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: 'rgb(200, 200, 200)',
     borderRadius: 5,
+    alignSelf: "center",
+
+  },
+  size:{
+    width: width-20,
+  },
+  mt10: {
+    marginTop: 10,
   },
 })
