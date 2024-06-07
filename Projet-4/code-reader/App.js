@@ -9,6 +9,7 @@ import {
   Dimensions,
 } from "react-native";
 import Cam from "./components/Camera";
+import Liste from "./components/Liste";
 
 const { width } = Dimensions.get("window");
 
@@ -42,14 +43,21 @@ export default function App() {
   return (
     <View style={styles.container}>
       {scan ? (
-        <>
-          <View style={styles.underContainer}>
-            <Text>{codeRead}</Text>
-            <TouchableOpacity style={styles.pasbutton} onPress={() => setScan(false)}>
-              <Text style={styles.text}>Scan Again</Text>
-            </TouchableOpacity>
-          </View>
+        <>      
+        <Liste maCoquille={codeRead}/>
+        <TouchableOpacity style={styles.pasbutton} onPress={() => setScan(false)}>
+          <Text style={styles.text}>Scan Again</Text>
+        </TouchableOpacity>
         </>
+        
+        // <>
+        //   <View style={styles.underContainer}>
+        //     <Text>{codeRead}</Text>
+        //     <TouchableOpacity style={styles.pasbutton} onPress={() => setScan(false)}>
+        //       <Text style={styles.text}>Scan Again</Text>
+        //     </TouchableOpacity>
+        //   </View>
+        // </>
       ) : (
         <Cam onScan={(code) => test(code)} />
       )}
@@ -61,7 +69,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    flexDirection: "row",
+    flexDirection: 'column',
   },
   underContainer: {
     flex: 1,
@@ -71,19 +79,19 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     marginHorizontal: 20,
     marginVertical: 30,
-    borderColor: "green",
-    borderWidth: 1,
   },
   pasbutton: {
     alignItems: "center",
     justifyContent: "center",
     height: 50,
-    borderColor: "red",
-    borderWidth: 1,
+    backgroundColor: "#007BFF",
+    borderTopStartRadius:10,
+    borderTopEndRadius:10,
+    marginHorizontal: 10,
   },
   text: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "black",
+    color: "white",
   },
 });
