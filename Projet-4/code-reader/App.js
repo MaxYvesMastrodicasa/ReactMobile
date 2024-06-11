@@ -49,15 +49,6 @@ export default function App() {
           <Text style={styles.text}>Scan Again</Text>
         </TouchableOpacity>
         </>
-        
-        // <>
-        //   <View style={styles.underContainer}>
-        //     <Text>{codeRead}</Text>
-        //     <TouchableOpacity style={styles.pasbutton} onPress={() => setScan(false)}>
-        //       <Text style={styles.text}>Scan Again</Text>
-        //     </TouchableOpacity>
-        //   </View>
-        // </>
       ) : (
         <Cam onScan={(code) => test(code)} />
       )}
