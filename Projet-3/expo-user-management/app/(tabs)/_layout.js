@@ -49,19 +49,6 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="mention"
-        options={{
-          title: "Mention Légales",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="file-certificate"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      />
     </Tabs>
   );
 }

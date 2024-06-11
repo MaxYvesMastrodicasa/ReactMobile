@@ -1,26 +1,30 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+
+const color = "#209fd0";
+const size = 125; 
 
 export default function HomeScreen (){
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.heading}>Bienvenue sur notre application</Text>
+      <Text style={styles.heading}>Bienvenue sur IsiCovoit</Text>
       <Text style={styles.subHeading}>Découvrez nos fonctionnalités</Text>
 
-      <Image
-        source={1}
-        style={styles.image}
-        resizeMode="contain"
-      />
+      <MaterialCommunityIcons
+              name="account"
+              color={color}
+              size={size}
+            />
       <Text style={styles.text}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </Text>
 
-      <Image
-        source={2}
-        style={styles.image}
-        resizeMode="contain"
-      />
+      <MaterialCommunityIcons
+              name="calendar-month"
+              color={color}
+              size={size}
+            />
       <Text style={styles.text}>
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
       </Text>
