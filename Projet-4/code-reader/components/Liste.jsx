@@ -36,7 +36,6 @@ export default function Liste({ maCoquille }) {
 
   // Fonction pour ajouter un nouveau formulaire à la liste
   const handleAddForm = () => {
-    console.log(maCoquille);
     if (maCoquille !== undefined) {
     const newList = [
       ...formList,
@@ -44,8 +43,6 @@ export default function Liste({ maCoquille }) {
     ];
     setFormList(newList); // Mettre à jour l'état avec la nouvelle liste
     storeData(id_List, newList); // Sauvegarder la nouvelle liste dans le cache
-    console.log(formList)
-    console.log(maCoquille)
   };
   };
 
