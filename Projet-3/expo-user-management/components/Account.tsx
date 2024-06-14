@@ -20,8 +20,8 @@ export default function Account({ session }: { session: Session | null }) {
   const [avatarUrl, setAvatarUrl] = useState("");
   const [email, setEmail] = useState("");
   const [nom, setNom] = useState("");
-  const [prenom, setPrenom] = useState("");
-  const [role, setRole] = useState("covoitureur"); // Par défaut
+  const [role, setRole] = useState("covoituré"); // Par défaut
+
 
   useEffect(() => {
     if (session) {
@@ -39,19 +39,15 @@ export default function Account({ session }: { session: Session | null }) {
 
       const { data, error, status } = await supabase
         .from("utilisateur")
-        .select(`email, nom, prenom, role, avatar_url`)
+        .select(`id, nom, role, avatar_url`)
         .eq("id", session.user.id)
         .single();
 
       if (error && status !== 406) {
         throw error;
       }
-      console.log(session.user);
       if (data) {
-        data.email = session.user.email;
-        setEmail(data.email);
         setNom(data.nom);
-        setPrenom(data.prenom);
         setRole(data.role);
         setAvatarUrl(data.avatar_url);
       }
@@ -66,12 +62,10 @@ export default function Account({ session }: { session: Session | null }) {
 
   async function updateProfile({
     nom,
-    prenom,
     role,
     avatar_url,
   }: {
     nom: string;
-    prenom: string;
     role: string;
     avatar_url: string;
   }) {
@@ -81,21 +75,16 @@ export default function Account({ session }: { session: Session | null }) {
 
       const updates = {
         id: session.user.id,
-        email,
         nom,
-        prenom,
         role,
         avatar_url,
-        updated_at: new Date(),
       };
-      console.log("a")
       const { error } = await supabase.from("utilisateur").upsert(updates);
 
       if (error) {
         console.log(error);
         throw error;
       }
-      console.log("b")
       Alert.alert("Success", "Your profile has been updated successfully!");
     } catch (error) {
       if (error instanceof Error) {
@@ -115,47 +104,42 @@ export default function Account({ session }: { session: Session | null }) {
             url={avatarUrl}
             onUpload={(url: string) => {
               setAvatarUrl(url);
-              updateProfile({ nom, prenom, role, avatar_url: url });
+              updateProfile({ nom, role, avatar_url: url });
             }}
           />
         </View>
         <View style={[styles.verticallySpaced, styles.mt20]}>
-          <Input label="Email" value={email} disabled />
+          <Input label="Email" value={email} disabled leftIcon={{ type: "font-awesome", name: "envelope" }}
+            leftIconContainerStyle = {{width:45}}/>
         </View>
         <View style={styles.verticallySpaced}>
           <Input
             label="Nom"
             leftIcon={{ type: "font-awesome", name: "user" }}
+            leftIconContainerStyle = {{width:45}}
             onChangeText={(text) => setNom(text)}
             value={nom}
             placeholder="Nom"
           />
         </View>
         <View style={styles.verticallySpaced}>
-          <Input
-            label="Prénom"
-            leftIcon={{ type: "font-awesome", name: "user" }}
-            onChangeText={(text) => setPrenom(text)}
-            value={prenom}
-            placeholder="Prénom"
-          />
-        </View>
-        <View style={styles.verticallySpaced}>
           <Text style={styles.label}>Rôle</Text>
+          <View style={[styles.contour, styles.center]}>
           <Picker
             selectedValue={role}
             onValueChange={(itemValue) => setRole(itemValue)}
             style={styles.picker}
           >
             <Picker.Item label="Covoitureur" value="covoitureur" />
-            <Picker.Item label="Covoituré" value="covoiture" />
+            <Picker.Item label="Covoituré" value="covoituré" />
           </Picker>
+          </View>
         </View>
         <View style={[styles.verticallySpaced, styles.mt20]}>
           <Button
             title={loading ? "Loading ..." : "Update"}
             onPress={() =>
-              updateProfile({ nom, prenom, role, avatar_url: avatarUrl })
+              updateProfile({ nom, role, avatar_url: avatarUrl })
             }
             disabled={loading}
           />
@@ -189,6 +173,9 @@ const styles = StyleSheet.create({
   mt20: {
     marginTop: 10,
   },
+  ml20: {
+    marginLeft: 20,
+  },
   center: {
     justifyContent: "center",
     alignItems: "center",
@@ -203,7 +190,12 @@ const styles = StyleSheet.create({
     height: 50,
     width: "100%",
   },
+  contour: {
+    borderColor:"#86939e",
+    borderWidth:1,
+    borderRadius:4,
+  },
   end:{
     marginBottom:20,
-  }
+  },
 });

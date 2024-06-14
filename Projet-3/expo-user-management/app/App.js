@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react'
-import { supabase } from '../lib/supabase'
-import Auth from '../components/Auth'
-import Tabs from './(tabs)/index'
-import { View } from 'react-native'
-import { Session } from '@supabase/supabase-js'
+import React, { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
+import Auth from '../components/Auth';
+import Tabs from './(tabs)/index';
+import { View, StyleSheet } from 'react-native';
 
 export default function App() {
   const [session, setSession] = useState(null);
@@ -23,8 +22,18 @@ export default function App() {
   }, []);
 
   return (
-    <View>
-      {session && session.user ? (<Tabs key={session.user.id} session={Session} />) : (<Auth />)}
-    </View>
-  )
+      <View style={styles.container}>
+        {session && session.user ? (
+          <Tabs key={session.user.id} session={session} />
+        ) : (
+          <Auth />
+        )}
+      </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

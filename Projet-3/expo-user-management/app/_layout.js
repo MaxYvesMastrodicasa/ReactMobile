@@ -4,6 +4,7 @@ import { Stack } from "expo-router";
 import Auth from "./../components/Auth";
 import { supabase } from '../lib/supabase'
 
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {

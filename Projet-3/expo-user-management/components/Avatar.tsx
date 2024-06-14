@@ -101,7 +101,7 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
       ) : (
         <View style={[avatarSize, styles.avatar, styles.noImage]} />
       )}
-      <View style={[styles.size, styles.mt10]}>
+      <View style={[styles.size, styles.mt10,styles.button]}>
         <Button
           title={uploading ? 'Uploading ...' : 'Upload'}
           onPress={uploadAvatar}
@@ -139,5 +139,9 @@ const styles = StyleSheet.create({
   },
   mt10: {
     marginTop: 10,
+  },
+  button: {
+    borderRadius: 4,
+    width:width-30,
   },
 })

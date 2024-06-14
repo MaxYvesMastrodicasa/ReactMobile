@@ -50,8 +50,8 @@ class LargeSecureStore {
   }
 };
 
-const supabaseUrl = "https://ioijkonhdaxdvnfdrffx.supabase.co";
-const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlvaWprb25oZGF4ZHZuZmRyZmZ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTc2NjIyNzIsImV4cCI6MjAzMzIzODI3Mn0.UCPl5vWG5EnbHs4Vabj474REa-ber0jM7UkJRMdFeaQ"
+const supabaseUrl = "https://djtoyczzuvqdftfataan.supabase.co";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRqdG95Y3p6dXZxZGZ0ZmF0YWFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTgzODQwOTAsImV4cCI6MjAzMzk2MDA5MH0.j0nocn-pjiJKlN4dVfw6p5cuzDV4wvMjvTQg6GMTjoM"
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     storage: new LargeSecureStore(),

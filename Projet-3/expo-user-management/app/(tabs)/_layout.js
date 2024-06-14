@@ -1,5 +1,6 @@
-import { Tabs } from "expo-router";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import React from 'react';
+import { Tabs } from 'expo-router';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 const colorI = "#209fd0";
 const colorA = "#645c64";
@@ -48,7 +49,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="info1"
         options={{
-          title: "Inforamtions",
+          title: "Informations",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
               name="information"
