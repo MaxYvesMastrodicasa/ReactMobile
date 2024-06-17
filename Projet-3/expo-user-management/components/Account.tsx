@@ -12,6 +12,7 @@ import { Button, Input } from "@rneui/themed";
 import Avatar from "./Avatar";
 import { Session } from "@supabase/supabase-js";
 import { Picker } from "@react-native-picker/picker";
+import Car from "./Car";
 
 const { height, width } = Dimensions.get("window");
 
@@ -135,7 +136,10 @@ export default function Account({ session }: { session: Session | null }) {
           </Picker>
           </View>
         </View>
-        <View style={[styles.verticallySpaced, styles.mt20]}>
+        {role === "covoitureur" ?(
+          <Car session={session}/>
+        ):(
+          <View style={[styles.verticallySpaced, styles.mt20]}>
           <Button
             title={loading ? "Loading ..." : "Update"}
             onPress={() =>
@@ -144,6 +148,7 @@ export default function Account({ session }: { session: Session | null }) {
             disabled={loading}
           />
         </View>
+        )}
         <View style={[styles.verticallySpaced, styles.end]}>
           <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
         </View>
