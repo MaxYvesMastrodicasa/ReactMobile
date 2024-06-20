@@ -22,7 +22,7 @@ export default function Account({ session }: { session: Session | null }) {
   const [email, setEmail] = useState("");
   const [nom, setNom] = useState("");
   const [role, setRole] = useState("covoituré"); // Par défaut
-
+  const [updateRole, setUpdateRole] = useState(false);
 
   useEffect(() => {
     if (session) {
@@ -51,6 +51,12 @@ export default function Account({ session }: { session: Session | null }) {
         setNom(data.nom);
         setRole(data.role);
         setAvatarUrl(data.avatar_url);
+
+        if (data.role === "covoitureur") {
+          setUpdateRole(true);
+        } else {
+          setUpdateRole(false);
+        }
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -80,11 +86,19 @@ export default function Account({ session }: { session: Session | null }) {
         role,
         avatar_url,
       };
-      const { error } = await supabase.from("utilisateur").upsert(updates);
+      const { error } = await supabase
+        .from("utilisateur")
+        .update(updates)
+        .eq("id", session.user.id);
 
       if (error) {
         console.log(error);
         throw error;
+      }
+      if (role === "covoitureur") {
+        setUpdateRole(true);
+      } else {
+        setUpdateRole(false);
       }
       Alert.alert("Success", "Your profile has been updated successfully!");
     } catch (error) {
@@ -110,14 +124,19 @@ export default function Account({ session }: { session: Session | null }) {
           />
         </View>
         <View style={[styles.verticallySpaced, styles.mt20]}>
-          <Input label="Email" value={email} disabled leftIcon={{ type: "font-awesome", name: "envelope" }}
-            leftIconContainerStyle = {{width:45}}/>
+          <Input
+            label="Email"
+            value={email}
+            disabled
+            leftIcon={{ type: "font-awesome", name: "envelope" }}
+            leftIconContainerStyle={{ width: 45 }}
+          />
         </View>
         <View style={styles.verticallySpaced}>
           <Input
             label="Nom"
             leftIcon={{ type: "font-awesome", name: "user" }}
-            leftIconContainerStyle = {{width:45}}
+            leftIconContainerStyle={{ width: 45 }}
             onChangeText={(text) => setNom(text)}
             value={nom}
             placeholder="Nom"
@@ -126,29 +145,30 @@ export default function Account({ session }: { session: Session | null }) {
         <View style={styles.verticallySpaced}>
           <Text style={styles.label}>Rôle</Text>
           <View style={[styles.contour, styles.center]}>
-          <Picker
-            selectedValue={role}
-            onValueChange={(itemValue) => setRole(itemValue)}
-            style={styles.picker}
-          >
-            <Picker.Item label="Covoitureur" value="covoitureur" />
-            <Picker.Item label="Covoituré" value="covoituré" />
-          </Picker>
+            <Picker
+              selectedValue={role}
+              onValueChange={(itemValue) => setRole(itemValue)}
+              style={styles.picker}
+            >
+              <Picker.Item label="Covoitureur" value="covoitureur" />
+              <Picker.Item label="Covoituré" value="covoituré" />
+            </Picker>
           </View>
         </View>
-        {role === "covoitureur" ?(
-          <Car session={session}/>
-        ):(
-          <View style={[styles.verticallySpaced, styles.mt20]}>
-          <Button
-            title={loading ? "Loading ..." : "Update"}
-            onPress={() =>
-              updateProfile({ nom, role, avatar_url: avatarUrl })
-            }
-            disabled={loading}
-          />
-        </View>
+        {role === "covoitureur" && updateRole ? (
+          <Car session={session} />
+        ) : (
+          <View style={[styles.verticallySpaced]}>
+            <Button
+              title={loading ? "Loading ..." : "Update Profile"}
+              onPress={() =>
+                updateProfile({ nom, role, avatar_url: avatarUrl })
+              }
+              disabled={loading}
+            />
+          </View>
         )}
+
         <View style={[styles.verticallySpaced, styles.end]}>
           <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
         </View>
@@ -196,11 +216,11 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   contour: {
-    borderColor:"#86939e",
-    borderWidth:1,
-    borderRadius:4,
+    borderColor: "#86939e",
+    borderWidth: 1,
+    borderRadius: 4,
   },
-  end:{
-    marginBottom:20,
+  end: {
+    marginBottom: 20,
   },
 });
